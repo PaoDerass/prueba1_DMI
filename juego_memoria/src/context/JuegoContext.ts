@@ -1,4 +1,4 @@
-import { createContext } from 'react';
+import { createContext, useContext } from 'react';
 
 interface ContextoJuegoType {
   cartas: string[];
@@ -23,3 +23,11 @@ export const ContextoJuego = createContext<ContextoJuegoType>({
   voltearCarta: () => {},
   reiniciarJuego: () => {},
 });
+
+export const useJuego = () => {
+  const context = useContext(ContextoJuego);
+  if (!context) {
+    throw new Error('useJuego debe usarse dentro de un ProveedorJuego');
+  }
+  return context;
+};
